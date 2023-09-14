@@ -6,7 +6,7 @@
 /*   By: ckarl <ckarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:42:37 by ckarl             #+#    #+#             */
-/*   Updated: 2023/09/13 17:54:26 by ckarl            ###   ########.fr       */
+/*   Updated: 2023/09/14 14:58:24 by ckarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void	init_philos(t_struct *data)
 		data->philo[i].meals_nbr = 0;
 		data->philo[i].last_meal = get_current_time(data);
 		data->philo[i].data = data;
+		data->philo[i].dead = 0;
 		data->philo[i].r_fork = &data->forks[i];
 		if (i == 0)
 			data->philo[i].l_fork = &data->forks[data->total_philo - 1];
 		else
 			data->philo[i].l_fork = &data->forks[i - 1];
+		pthread_mutex_init(&data->philo[i].lock, NULL);
 	}
 }
 
@@ -81,12 +83,13 @@ int	run_threads(t_struct *data)
 	i = -1;
 	data->start_time = get_current_time(data);
 	if (data->total_philo == 1)
-		return(run_one_thread(data));
+		return (run_one_thread(data));
 	while (++i < data->total_philo)
 	{
 		if (pthread_create(&data->threads[i], NULL, &routine, \
 			&data->philo[i]) != 0)
 			return (error_msg(CREATE_ERR, data));
+		usleep(100);
 	}
 	i = -1;
 	while (++i < data->total_philo)
@@ -95,7 +98,7 @@ int	run_threads(t_struct *data)
 			return (error_msg(JOIN_ERR, data));
 	}
 	if (data->total_meals == 0)
-		return(error_msg(FINISH_ZERO, data));
+		return (error_msg(FINISH_ZERO, data));
 	return (0);
 }
 

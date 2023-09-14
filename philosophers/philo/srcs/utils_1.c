@@ -6,7 +6,7 @@
 /*   By: ckarl <ckarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:23:41 by ckarl             #+#    #+#             */
-/*   Updated: 2023/09/13 17:56:37 by ckarl            ###   ########.fr       */
+/*   Updated: 2023/09/14 14:41:19 by ckarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	clear_all(t_struct *data)
 	if (data)
 	{
 		while (++i < data->total_philo)
+		{
 			pthread_mutex_destroy(&data->forks[i]);
+			pthread_mutex_destroy(&data->philo[i].lock);
+		}
 		if (data->philo)
 			free(data->philo);
 		if (data->threads)

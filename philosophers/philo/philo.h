@@ -6,7 +6,7 @@
 /*   By: ckarl <ckarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:13:00 by ckarl             #+#    #+#             */
-/*   Updated: 2023/09/13 17:58:02 by ckarl            ###   ########.fr       */
+/*   Updated: 2023/09/14 14:56:53 by ckarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ struct s_struct;
 typedef struct s_philo
 {
 	struct s_struct	*data;
+	pthread_t		observer;
 	int				id;
 	int				meals_nbr;
 	int				last_meal;
+	int				dead;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 }	t_philo;
@@ -107,5 +110,6 @@ void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 void	*routine(void *p);
 void	*one_routine(void *p);
+void	*obs_routine(void *p);
 
 #endif

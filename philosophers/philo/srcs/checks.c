@@ -6,7 +6,7 @@
 /*   By: ckarl <ckarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:51:54 by ckarl             #+#    #+#             */
-/*   Updated: 2023/09/13 17:58:20 by ckarl            ###   ########.fr       */
+/*   Updated: 2023/09/14 14:47:55 by ckarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int	check_if_dead(t_philo *philo)
 {
 	if (philo->data->stop != 0)
 		return (1);
-	else if ((get_current_time(philo->data) - philo->last_meal\
+	else if ((get_current_time(philo->data) - philo->last_meal \
 		>= philo->data->time_to_die))
 	{
+		philo->dead = 1;
 		print_msg(DIE, philo);
 		return (1);
 	}
