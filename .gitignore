@@ -4,9 +4,8 @@
 # Object files
 *.o
 *.ko
-*.obj
+*.objs
 *.elf
-objs/
 
 # vs code
 .vscode/
