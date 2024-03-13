@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"libft.h": "c",
-		"unistd.h": "c",
-		"get_next_line.h": "c",
-		"ft_printf_utils.h": "c"
-	}
-}
